@@ -1,4 +1,5 @@
 addpath(genpath('/home/joaquinruiz/Dropbox/Github'))
+addpath(genpath('/home/jruiz'))
 load('wave_indexes.mat')
 
 %indx = Meta.wave_indexes;
