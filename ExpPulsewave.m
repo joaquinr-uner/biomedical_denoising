@@ -11,7 +11,8 @@ N = 7000;
 T = 120;
 
 t = linspace(0,T,N);
-SNR = 0:10:30;
+%SNR = 0:10:30;
+SNR = 10:10:30;
 NR = length(SNR);
 Nr = 70;
 fs = N/T;
@@ -50,6 +51,7 @@ for l=1:size(DB,1)
     for k=1:length(SNR)
         SNRk = SNR(k);
         parfor j=1:Nr
+            print(['Processing Pulsewave ' num2str(j) '...\n'])
             fl = fl1 + (fl2 - fl1)*rand(1,1);
             fh = fh1 + (fh2 - fh1)*rand(1,1);
             
@@ -111,8 +113,6 @@ for l=1:size(DB,1)
             Ssoft(j,:) = s_soft;
             
             Ropt(j) = r_opt;
-            
-
         end
 Meta = struct('wave_indexes',indx,'Sest',S_est,'S3',S_3,'S6',S_6,...
             'S9',S_9,'Shard',Shard,'Ssoft',Ssoft,'SNR',SNRk,'fixed_r',Ropt,...
