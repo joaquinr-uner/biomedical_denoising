@@ -50,6 +50,7 @@ for l=1:size(DB,1)
     for k=1:length(SNR)
         SNRk = SNR(k);
         parfor j=1:Nr
+            fprintf(['Processing Pulsewave ' num2str(j) '...\n'])
             fl = fl1 + (fl2 - fl1)*rand(1,1);
             fh = fh1 + (fh2 - fh1)*rand(1,1);
             
@@ -111,10 +112,13 @@ for l=1:size(DB,1)
             Ssoft(j,:) = s_soft;
             
             Ropt(j) = r_opt;
-            
-
+            S(j,:) = src;
         end
+<<<<<<< HEAD
         Meta = struct('wave_indexes',indx,'Sest',S_est,'S3',S_3,'S6',S_6,...
+=======
+Meta = struct('wave_indexes',indx,'Signals',S,'Sest',S_est,'S3',S_3,'S6',S_6,...
+>>>>>>> f14f71f02a2b05bb2cbdf4e3e25129ca1611e4da
             'S9',S_9,'Shard',Shard,'Ssoft',Ssoft,'SNR',SNRk,'fixed_r',Ropt,...
             'SNR_out',SNRout,'SNR3',SNR3,'SNR6',SNR6,'SNR9',SNR9,...
             'SNRhard',SNR_hard,'SNRsoft',SNR_soft);
