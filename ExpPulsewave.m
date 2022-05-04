@@ -5,6 +5,18 @@ load('wave_indexes.mat')
 %indx = Meta.wave_indexes;
 DB ={
     'AbdAorta';
+    'AntTibial';
+    'AorticRoot';
+    'Brachial';
+    'Carotid';
+    'CommonIliac';
+    'Digital';
+    'Femoral';
+    'IliacBif';
+    'Radial';
+    'SupMidCerebral';
+    'SupTemporal';
+    'ThorAorta'
     };
 
 N = 7000;
@@ -18,7 +30,6 @@ fs = N/T;
 f = 0:fs/N:(fs/2-fs/N);
 
 for l=1:size(DB,1)
-    
     sdihr = 0.035;
     a = sqrt(3)/(sqrt(3) + 1);
     b = a/sqrt(3);
@@ -28,8 +39,8 @@ for l=1:size(DB,1)
     fh1 = 0.15;
     fh2 = 0.4;
     
-    Data = readtable(['PWs_' DB{l} '_PPG.csv'], 'HeaderLines',1);
-    
+    Data = readtable(['PWs_' DB{l} '_P.csv'], 'HeaderLines',1);
+    indx = randi(size(Data,1),70);
     Data = table2array(Data);
     Data(:,1:2) = [];
     [M,~] = size(Data);
