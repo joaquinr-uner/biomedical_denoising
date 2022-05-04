@@ -38,7 +38,7 @@ for l=1:size(DB,1)
     fl2 = 0.15;
     fh1 = 0.15;
     fh2 = 0.4;
-    
+    fprintf(['Cardiovascular Section: ' DB{l} '\n'])
     Data = readtable(['PWs_' DB{l} '_P.csv'], 'HeaderLines',1);
     indx = randi(size(Data,1),70);
     Data = table2array(Data);
@@ -60,6 +60,7 @@ for l=1:size(DB,1)
     Ssoft = zeros(Nr,N);
     for k=1:length(SNR)
         SNRk = SNR(k);
+        fprintf(['SNR_in : ' num2str(SNRk) '...\n'])
         parfor j=1:Nr
             fprintf(['Processing Pulsewave ' num2str(j) '...\n'])
             fl = fl1 + (fl2 - fl1)*rand(1,1);
