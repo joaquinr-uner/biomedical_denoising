@@ -16,3 +16,8 @@ PWs_ThorAorta_P.csv
 PWs_Radial_P.csv
 Results_AbdAorta_20dB.mat
 Results_AbdAorta_30dB.mat
+out_PW.txt
+Results_PPG_AbdAorta_0dB.mat
+Results_PPG_AbdAorta_10dB.mat
+Results_PPG_AbdAorta_20dB.mat
+Results_PPG_AbdAorta_30dB.mat

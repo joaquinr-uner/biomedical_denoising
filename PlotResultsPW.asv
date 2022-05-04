@@ -12,7 +12,7 @@ SNRhard = zeros(70,4);
 
 %Sect = 'AbdAorta';
 %Sect = 'AntTibial';
-%Sect = 'AorticRoot';
+Sect = 'AorticRoot';
 Sect = 'Brachial';
 for i=1:length(SNR)
    load(fullfile(drt,['Results_' Sect '_' SNR{i} 'dB.mat']))
