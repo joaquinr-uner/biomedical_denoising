@@ -8,6 +8,8 @@ SNRout = zeros(70,4);
 SNR3 = zeros(70,4);
 SNR6 = zeros(70,4);
 SNR9 = zeros(70,4);
+SNR18 = zeros(70,4);
+SNRmax = zeros(70,4);
 SNRsoft = zeros(70,4);
 SNRhard = zeros(70,4);
 
@@ -21,10 +23,12 @@ for i=1:length(SNR)
    SNR3(:,i) = Meta.SNR3;
    SNR6(:,i) = Meta.SNR6;
    SNR9(:,i) = Meta.SNR9;
+   SNR18(:,i) = Meta.SNR18;
+   SNRmax(:,i) = Meta.SNRmax;
    SNRhard(:,i) = Meta.SNRhard;
    SNRsoft(:,i) = Meta.SNRsoft;    
 end
 
-h = {SNRout,SNR3,SNR6,SNR9,SNRhard,SNRsoft};
-boxplotGroup(h,'PrimaryLabels',{'Ada','3','6','9','HT','ST'},'SecondaryLabels',{'SNR_{in} = 0 dB' 'SNR_{in} = 10 dB' 'SNR_{in} = 20 dB'...
+h = {SNRout,SNR3,SNR6,SNR9,SNR18,SNRmax,SNRhard,SNRsoft};
+boxplotGroup(h,'PrimaryLabels',{'Ada','3','6','9','18','Rmax','HT','ST'},'SecondaryLabels',{'SNR_{in} = 0 dB' 'SNR_{in} = 10 dB' 'SNR_{in} = 20 dB'...
         'SNR_{in} = 30 dB'}, 'InterGroupSpace', 2)
