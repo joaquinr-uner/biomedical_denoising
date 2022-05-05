@@ -1,6 +1,7 @@
-%drt = '/home/joaquinruiz/Dropbox/Github/biomedical_denoising';
-addpath(genpath('C:\Users\Intel\Dropbox\Github'))
-drt = 'C:\Users\Intel\Dropbox\Github\biomedical_denoising';
+addpath(genpath('/home/joaquinruiz/Dropbox/Github')) 
+drt = '/home/joaquinruiz/Dropbox/Github/biomedical_denoising';
+%drt = 'C:\Users\Intel\Dropbox\Github\biomedical_denoising';
+%addpath(genpath('C:\Users\Intel\Dropbox\Github'))
 SNR = {'0','10','20','30'};
 
 SNRout = zeros(70,4);
@@ -10,10 +11,10 @@ SNR9 = zeros(70,4);
 SNRsoft = zeros(70,4);
 SNRhard = zeros(70,4);
 
-%Sect = 'AbdAorta';
+Sect = 'AbdAorta';
 %Sect = 'AntTibial';
 %Sect = 'AorticRoot';
-Sect = 'Brachial';
+%Sect = 'Brachial';
 for i=1:length(SNR)
    load(fullfile(drt,['Results_' Sect '_' SNR{i} 'dB.mat']))
    SNRout(:,i) = Meta.SNR_out;
