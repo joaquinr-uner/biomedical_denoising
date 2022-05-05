@@ -40,7 +40,8 @@ for l=1:size(DB,1)
     fh2 = 0.4;
     fprintf(['Cardiovascular Section: ' DB{l} '\n'])
     Data = readtable(['PWs_' DB{l} '_P.csv'], 'HeaderLines',1);
-    indx = randi(size(Data,1),70);
+    indx = randi(size(Data,1),[1,70]);
+    save(['wave_indexes_' DB{l} '.mat'],'indx')
     Data = table2array(Data);
     Data(:,1:2) = [];
     [M,~] = size(Data);
@@ -49,6 +50,8 @@ for l=1:size(DB,1)
     SNR3 = zeros(Nr,1);
     SNR6 = zeros(Nr,1);
     SNR9 = zeros(Nr,1);
+    SNR18 = zeros(Nr,1);
+    SNRmax = zeros(Nr,1);
     SNR_hard = zeros(Nr,1);
     SNR_soft = zeros(Nr,1);
     Ropt = zeros(Nr,1);
@@ -56,12 +59,14 @@ for l=1:size(DB,1)
     S_3 = zeros(Nr,N);
     S_6 = zeros(Nr,N);
     S_9 = zeros(Nr,N);
+    S_18 = zeros(Nr,N);
+    S_max = zeros(Nr,N);
     Shard = zeros(Nr,N);
     Ssoft = zeros(Nr,N);
     for k=1:length(SNR)
         SNRk = SNR(k);
         fprintf(['SNR_in : ' num2str(SNRk) '...\n'])
-        for j=1:Nr
+        parfor j=1:Nr
             fprintf(['Processing Pulsewave ' num2str(j) '...\n'])
             fl = fl1 + (fl2 - fl1)*rand(1,1);
             fh = fh1 + (fh2 - fh1)*rand(1,1);
@@ -113,6 +118,14 @@ for l=1:size(DB,1)
             SNR9(j) = 20*log10(std(src)/std(src-s_9));
             S_9(j,:) = s_9;
             
+            [s_18, v_18] = WSF(sr,c,18,1,50,F,sF);
+            SNR18(j) = 20*log10(std(src)/std(src-s_18));
+            S_18(j,:) = s_18;
+            
+            [s_max, v_max] = WSF(sr,c,r_max,1,50,F,sF);
+            SNRmax(j) = 20*log10(std(src)/std(src-s_max));
+            S_max(j,:) = s_max;
+            
             F_hthr = threshold(F,1);
             F_sthr = threshold(F,2);
             s_hard= 2/max(sF)*real(sum(F_hthr,1));
@@ -126,9 +139,10 @@ for l=1:size(DB,1)
             Ropt(j) = r_opt;
             S(j,:) = src;
         end
-Meta = struct('wave_indexes',indx,'Signals',S,'Sest',S_est,'S3',S_3,'S6',S_6,...
-            'S9',S_9,'Shard',Shard,'Ssoft',Ssoft,'SNR',SNRk,'fixed_r',Ropt,...
-            'SNR_out',SNRout,'SNR3',SNR3,'SNR6',SNR6,'SNR9',SNR9,...
+Meta = struct('Signals',S,'Sest',S_est,'S3',S_3,'S6',S_6,...
+            'S9',S_9,'S18',S_18,'Smax',S_max,'Shard',Shard,'Ssoft',Ssoft,...
+            'SNR',SNRk,'fixed_r',Ropt,'SNR_out',SNRout,'SNR3',SNR3,'SNR6',...
+            SNR6,'SNR9',SNR9,'SNR18',SNR18,'SNRmax',SNRmax,...
             'SNRhard',SNR_hard,'SNRsoft',SNR_soft);
         save(['Results_' DB{l} '_' num2str(SNRk) 'dB.mat'],'Meta')
     end
