@@ -40,7 +40,8 @@ for l=1:size(DB,1)
     fh2 = 0.4;
     fprintf(['Cardiovascular Section: ' DB{l} '\n'])
     Data = readtable(['PWs_' DB{l} '_P.csv'], 'HeaderLines',1);
-    indx = randi(size(Data,1),[1,70]);
+    %indx = randi(size(Data,1),[1,70]);
+    indx = randsample(size(Data,1),70);
     save(['wave_indexes_' DB{l} '.mat'],'indx')
     Data = table2array(Data);
     Data(:,1:2) = [];
