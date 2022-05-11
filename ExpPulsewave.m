@@ -4,19 +4,19 @@ load('wave_indexes.mat')
 
 %indx = Meta.wave_indexes;
 DB ={
-    'AbdAorta';
-    'AntTibial';
-    'AorticRoot';
-    'Brachial';
-    'Carotid';
-    'CommonIliac';
+    %'AbdAorta';
+    %'AntTibial';
+    %'AorticRoot';
+    %'Brachial';
+    %'Carotid';
+    %'CommonIliac';
     'Digital';
-    'Femoral';
-    'IliacBif';
+    %'Femoral';
+    %'IliacBif';
     'Radial';
-    'SupMidCerebral';
-    'SupTemporal';
-    'ThorAorta'
+    %'SupMidCerebral';
+    %'SupTemporal';
+    %'ThorAorta'
     };
 
 N = 7000;
@@ -39,10 +39,15 @@ for l=1:size(DB,1)
     fh1 = 0.15;
     fh2 = 0.4;
     fprintf(['Cardiovascular Section: ' DB{l} '\n'])
-    Data = readtable(['PWs_' DB{l} '_P.csv'], 'HeaderLines',1);
+    %Data = readtable(['PWs_' DB{l} '_P.csv'], 'HeaderLines',1);
+    Data = readtable(fullfile('/home/joaquinruiz/Documents/PWDB',['PWs_' DB{l} '_P.csv']), 'HeaderLines',1);
     %indx = randi(size(Data,1),[1,70]);
-    indx = randsample(size(Data,1),70);
-    save(['wave_indexes_' DB{l} '.mat'],'indx')
+    if exist(fullfile('/home/joaquinruiz/Documents/Results_ExpPWDB',['wave_indexes_' DB{l} '.mat']),'file')
+        load(fullfile('/home/joaquinruiz/Documents/Results_ExpPWDB',['wave_indexes_' DB{l} '.mat']))
+    else
+        indx = randsample(size(Data,1),70);
+        save(['wave_indexes_' DB{l} '.mat'],'indx')
+    end
     Data = table2array(Data);
     Data(:,1:2) = [];
     [M,~] = size(Data);
@@ -67,7 +72,7 @@ for l=1:size(DB,1)
     for k=1:length(SNR)
         SNRk = SNR(k);
         fprintf(['SNR_in : ' num2str(SNRk) '...\n'])
-        parfor j=1:Nr
+        for j=1:Nr
             fprintf(['Processing Pulsewave ' num2str(j) '...\n'])
             fl = fl1 + (fl2 - fl1)*rand(1,1);
             fh = fh1 + (fh2 - fh1)*rand(1,1);
@@ -93,7 +98,9 @@ for l=1:size(DB,1)
             
             H = 1;
             [F,sF] = STFT_Gauss(sr,length(sr)*redun,sigma,0.5);
-            c = ridge_ext(F,0.1,0.1,50,10,redun);
+            U = istct_fast(F,f,0.3);
+            W = U.*F;
+            c = ridge_ext(W,0.1,0.1,50,10,redun);
             r_max = floor(length(sr)*0.5/max(c));
             G = sqrt(sqrt(pi)/sqrt(2*sigma));
             est_desvGRe= median(abs(real(F(:))))/0.6745;
