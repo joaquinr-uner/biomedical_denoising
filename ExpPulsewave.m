@@ -42,8 +42,8 @@ for l=1:size(DB,1)
     %Data = readtable(['PWs_' DB{l} '_P.csv'], 'HeaderLines',1);
     Data = readtable(fullfile('/home/joaquinruiz/Documents/PWDB',['PWs_' DB{l} '_P.csv']), 'HeaderLines',1);
     %indx = randi(size(Data,1),[1,70]);
-    if exist(fullfile('/home/joaquinruiz/Documents/Results_ExpPWDB',['wave_indexes_' DB{l} '.mat']),'file')
-        load(fullfile('/home/joaquinruiz/Documents/Results_ExpPWDB',['wave_indexes_' DB{l} '.mat']))
+    if exist(['wave_indexes_' DB{l} '.mat'],'file')
+        load(['wave_indexes_' DB{l} '.mat'])
     else
         indx = randsample(size(Data,1),70);
         save(['wave_indexes_' DB{l} '.mat'],'indx')
