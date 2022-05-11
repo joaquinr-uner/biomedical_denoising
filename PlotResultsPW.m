@@ -17,10 +17,7 @@ SNRhard = SNRout;
 %Signal = 'PPG';
 Signal = 'Pulse';
 
-%Sect = 'AbdAorta';
-%Sect = 'AntTibial';
-%Sect = 'AorticRoot';
-%Sect = 'Brachial';
+Sect = 'Digital';
 for i=1:length(SNR)
     set(gcf, 'Position', [1 -94 762 778]);
     load(fullfile(drt,['Results_' Signal '_' Sect '_' SNR{i} 'dB.mat']))
