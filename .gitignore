@@ -21,3 +21,14 @@ Results_PPG_AbdAorta_0dB.mat
 Results_PPG_AbdAorta_10dB.mat
 Results_PPG_AbdAorta_20dB.mat
 Results_PPG_AbdAorta_30dB.mat
+*.pdf
+Test_Log.txt
+FriedmanTest_3SNRs.m
+PlotHistograms.m
+BoxplotAllSects.m
+PlotResultsPW.asv
+*.asv
+FriedmanTest.m
+PlotPulsewaves.m
+PlotResultsPW.m
+PlotResultsPW.asv
