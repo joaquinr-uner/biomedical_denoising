@@ -39,8 +39,8 @@ for l=1:size(DB,1)
     fh1 = 0.15;
     fh2 = 0.4;
     fprintf(['Cardiovascular Section: ' DB{l} '\n'])
-    %Data = readtable(['PWs_' DB{l} '_P.csv'], 'HeaderLines',1);
-    Data = readtable(fullfile('/home/joaquinruiz/Documents/PWDB',['PWs_' DB{l} '_P.csv']), 'HeaderLines',1);
+    Data = readtable(['PWs_' DB{l} '_P.csv'], 'HeaderLines',1);
+    %Data = readtable(fullfile('/home/joaquinruiz/Documents/PWDB',['PWs_' DB{l} '_P.csv']), 'HeaderLines',1);
     %indx = randi(size(Data,1),[1,70]);
     if exist(['wave_indexes_' DB{l} '.mat'],'file')
         load(['wave_indexes_' DB{l} '.mat'])
