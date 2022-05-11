@@ -72,7 +72,7 @@ for l=1:size(DB,1)
     for k=1:length(SNR)
         SNRk = SNR(k);
         fprintf(['SNR_in : ' num2str(SNRk) '...\n'])
-        for j=1:Nr
+        parfor j=1:Nr
             fprintf(['Processing Pulsewave ' num2str(j) '...\n'])
             fl = fl1 + (fl2 - fl1)*rand(1,1);
             fh = fh1 + (fh2 - fh1)*rand(1,1);
