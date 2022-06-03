@@ -32,3 +32,6 @@ FriedmanTest.m
 PlotPulsewaves.m
 PlotResultsPW.m
 PlotResultsPW.asv
+Boxplot2Sects.m
+FriedmanTest_2Sects.m
+PlotHistograms_Comp.m
